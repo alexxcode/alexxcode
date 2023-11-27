@@ -10,7 +10,7 @@
 
 ## Technical Skills
 
-* Programming Languages: Python, SQL, C++
+* Programming Languages: Python, SQL, C++, JavaScript
 * Data Visualization: Power BI
 * Machine Learning: Regression, Classification, Clustering
 * Cloud Computing: AWS, Azure
