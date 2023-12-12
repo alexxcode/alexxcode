@@ -2,6 +2,8 @@
 
 ## I am a passionate data scientist and computer science student with a strong interest in developing data-driven solutions to real-world problems. I recently completed an intensive data science bootcamp where I gained proficiency in SQL, Python, Power BI, machine learning, cloud computing, and NoSQL. I am eager to apply my skills and knowledge to make a positive impact in the industry.
 
+Languages: 🇪🇸 🇬🇧 
+
 ## Contact:
 
 * [alexisrrm12@gmail.com]
