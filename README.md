@@ -15,8 +15,8 @@ Languages: English/Spanish
 * Programming Languages: Python, SQL, C++, JavaScript
 * Data Visualization: Power BI
 * Machine Learning: Regression, Classification, Clustering
-* Cloud Computing: AWS, Azure
-* NoSQL Databases: MongoDB
+* Cloud Computing: GCP, AWS
+
 
 [![GitHub Streak](https://streak-stats.demolab.com/?user=alexxcode&theme=dark)](https://git.io/streak-stats)
 <!---
