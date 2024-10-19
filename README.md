@@ -7,7 +7,7 @@ Languages: English/Spanish
 ## Contact:
 
 * [alexisrrm12@gmail.com]
-* [LinkedIn Profile]
+* [https://www.linkedin.com/in/alexis-rojas-alexxcode/]
 
 
 ## Technical Skills
