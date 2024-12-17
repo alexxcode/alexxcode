@@ -1,6 +1,6 @@
 # 👋 Hi, I’m Alexis
 
-## I am a passionate data scientist and computer science student with a strong interest in developing data-driven solutions to real-world problems. I recently completed an intensive data science bootcamp where I gained proficiency in SQL, Python, Power BI, machine learning, cloud computing, and NoSQL. I am eager to apply my skills and knowledge to make a positive impact in the industry.
+## I am a Data Scientist, Software Developer, and Computer Science student with a profound interest in developing data-driven solutions to real-world problems. I possess a solid foundation in mathematics and statistics, derived from my academic background. Recently, I completed an intensive data science bootcamp where I gained proficiency in SQL, Python, Power BI, machine learning, and cloud computing. I am eager to apply my skills and knowledge to make a positive impact in the industry.
 
 Languages: English/Spanish
 
