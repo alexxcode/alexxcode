@@ -50,7 +50,6 @@ Focused on **real-time video analysis**, **neural knowledge graphs**, **large-sc
 
 ## 📊 GitHub Stats
 ![GitHub Streak](https://streak-stats.demolab.com/?user=alexxcode&theme=dark&hide_border=true)
-![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=alexxcode&layout=compact&theme=dark&hide_border=true)
 
 ---
 
