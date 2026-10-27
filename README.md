@@ -1,53 +1,58 @@
 # Alexis Rojas
 
-**Applied AI Engineer. Computer vision systems that run in production.**
+**AI Engineer. LLM agents, RAG and ML systems in production — and the evaluation that proves they work.**
 
-I build end-to-end vision systems: from dataset construction and model training to real-time inference on edge devices and cloud deployment. Most of my recent work comes from an EU-funded industrial R&D program (CDTI/EUREKA) where I designed and shipped the core ML infrastructure for a smart manufacturing platform, and from independent systems in identity verification, fraud, and geospatial analysis.
+I build AI systems for finance and compliance workflows: audit agents, contract RAG, fraud scoring and identity verification. My focus is the part that doesn't demo well: measuring accuracy honestly, knowing when a system should refuse to answer, and tracing every decision it makes.
 
-I care about the part of ML that usually fails: getting models to work reliably outside the notebook.
+That discipline comes from shipping ML where failure is visible: as Lead AI Engineer on a European industrial AI platform, I built the model registry and hot-swap inference behind eight models running concurrently on factory edge hardware. The same rules carry over to LLMs — versioned, traced, evaluated on data the system has never seen.
 
 ---
 
-## Selected systems
+## Featured
 
-### Vivace — Passive Liveness Detection (PAD)
-End-to-end Presentation Attack Detection system for KYC identity verification: given face frames from a camera, it classifies live subjects vs. 2D spoofing artifacts (print and screen replay). Covers the full lifecycle: subject-disjoint data pipeline (TFRecords on GCS), EfficientNetB0 training with focal loss, ISO/IEC 30107-3 evaluation (APCER / BPCER / ACER, DET curves), versioned model bundles, and FastAPI serving on Cloud Run with strict train/serve preprocessing parity enforced by construction. Thresholds are selected on validation and reported on a held-out deployable basis (not oracle-tuned), with cross-dataset generalization as the truth criterion. 123 tests across preprocessing, data, training, evaluation, and serving. No image retention, non-PII logging.
-**Stack:** TensorFlow/Keras (EfficientNetB0), MediaPipe, OpenCV, tf.data/TFRecords, FastAPI, Docker, Cloud Run, Cloud Build, GCS, pytest.
+### [The Catcher in the RAG](https://github.com/alexxcode/the-catcher-in-the-rag) — LLM audit agent + contract RAG
+An accounts-payable agent that stands between the invoice and the payment. It runs a three-way match (PO, goods receipt, invoice), retrieves the governing contract clauses, and returns `APPROVE` / `REVIEW` / `REJECT` / `ABSTAIN`.
 
-### Dupin — Real-Time Transaction Fraud Scoring
-Real-time fraud risk scoring for mobile-money transactions: a raw transaction in, a continuous score, an `approve` / `review` / `block` decision, and a human-readable reason per flag out, with latency measured under load. Deployed on Cloud Run with a live monitoring dashboard (decision-colored stream, interactive threshold, recall/precision/latency KPIs). Train/serve feature parity, a versioned model bundle that refuses to start if any component is missing, and an honest evaluation regime (temporal splits, leakage audit) so the headline metric is the deployable one rather than the optimistic one.
-**Stack:** LightGBM, FastAPI, Docker, Cloud Run, Cloud Build, GCS, pytest.
-*Trained on synthetic data (PaySim); the contribution is the methodology and the system, not production-grade metrics.*
+- **Cite or stay quiet.** Every clause-backed finding carries a verbatim quote validated as an exact substring of the contract, with character offsets. No valid quote, no finding.
+- **Bartleby, the abstention guard.** When no clause is relevant enough, the agent declines to judge and hands the package to a human.
+- **The LLM extracts; a deterministic policy engine decides.** LangGraph state machine, Gemini on Vertex AI, full Langfuse tracing.
+- **Measured on real SEC contracts (CUAD), out of sample:** dense retrieval reaches 85.9% Hit@5 vs. 68.6% for BM25. LLM verification raises correct abstention on absent clauses from 27.9% to 63.3%.
+- **Honest limits, published:** false abstentions are still 47.4% of present clauses, and the retrieval score alone barely beats chance at separating them. Every number in the README is regenerated from eval reports, with confidence intervals.
 
-### Palimpsest — Satellite Change Detection
-Detects structural change between Sentinel-2 image pairs using a ChangeFormer model I trained from scratch on LEVIR-CD (F1 = 0.8169) and fine-tuned on OSCD. Served via FastAPI on Cloud Run, results stored in BigQuery, with an LLM agent layer for natural-language querying over detections.
-**Stack:** PyTorch, ChangeFormer, Sentinel-2, FastAPI, Cloud Run, BigQuery, Gemini function calling.
+**Stack:** Python, LangGraph, Vertex AI (Gemini, `text-embedding-005`), BM25 + dense hybrid retrieval, Langfuse, FastAPI, Streamlit, Terraform, Cloud Run.
+[Live demo](https://catcher-ui-staging-hrok623gcq-uc.a.run.app) (stub mode, may be scaled to zero)
 
-### MENTAT — SAM 2 Pre-labeling Service
-Microservice that automates video annotation for industrial datasets using SAM 2 propagation. Reduced manual annotation time by ~94% across 115,000+ frames, feeding the training pipeline for eight production use cases.
-**Stack:** SAM 2, FastAPI, Celery, Redis, Docker.
-*Built under an EU-funded R&D project.*
+### [Dupin](https://github.com/alexxcode/dupin) — Real-time transaction fraud scoring
+A raw transaction in; a risk score, an `approve` / `review` / `block` decision and a human-readable reason per flag out, with latency measured under load. Temporal splits and a leakage audit so the headline metric is the deployable one, not the optimistic one. Live monitoring dashboard on Cloud Run.
+**Stack:** LightGBM, FastAPI, Docker, Cloud Run, Cloud Build.
+*Trained on synthetic data (PaySim): the contribution is the methodology and the system, not production-grade metrics.*
 
-### Fábrica de Modelos — Industrial MLOps Platform
-Training, model registry, and hot-swap inference platform for industrial vision models. Handles dataset versioning, training jobs, evaluation, and zero-downtime model replacement on edge devices.
-**Stack:** Python, FastAPI, Docker, GCP, YOLO11, TensorRT.
-*Built under an EU-funded R&D project. Code private.*
+### Vivace — Passive liveness detection for KYC
+Presentation Attack Detection (live face vs. print or screen replay) evaluated against ISO/IEC 30107-3 (APCER / BPCER / ACER). Thresholds chosen on validation and reported on held-out data, not oracle-tuned; cross-dataset generalization as the truth criterion. Train/serve preprocessing parity enforced by construction, 123 tests, no image retention.
+**Stack:** TensorFlow/Keras (EfficientNetB0), MediaPipe, FastAPI, Cloud Run.
 
-### EXPAI Inference Platform — Multi-agent Edge Inference
-Real-time, multi-camera inference system running eight concurrent computer vision use cases (PPE compliance, assembly verification, dimensional metrology, surface defect detection, object counting with ByteTrack) on NVIDIA Jetson.
-**Stack:** NVIDIA Jetson, TensorRT, YOLO11, Python, Redis.
-*Built under an EU-funded R&D project. Code private.*
+---
+
+## In production (industrial AI platform, code private)
+
+- **MLOps platform ("model factory"):** dataset versioning, training jobs, model registry and zero-downtime hot-swap inference on edge devices.
+- **MENTAT — SAM 2 pre-labeling service:** ~94% less manual annotation time across 115,000+ frames.
+- **Edge inference:** eight concurrent vision use cases (PPE compliance, assembly verification, defect detection, counting) on NVIDIA Jetson with TensorRT.
+
+## More projects
+
+- [**Aleph**](https://github.com/alexxcode/aleph) — demand forecasting on dbt + BigQuery + LightGBM; WAPE ~0.11 at one-week horizon.
+- [**Palimpsest**](https://github.com/alexxcode/palimpsest) — satellite change detection (ChangeFormer, F1 0.817 on LEVIR-CD) with an LLM function-calling layer over BigQuery.
 
 ---
 
 ## What I work with
 
-**Core:** Python, FastAPI, Redis, Celery, Docker
-**Vision / ML:** PyTorch, TensorFlow/Keras, YOLO11, SAM 2, OpenCV, MediaPipe, TensorRT, transformer-based change detection
-**Cloud / Data:** GCP (Cloud Run, BigQuery, Vertex AI, Cloud Build, GCS), dbt, tf.data/TFRecords
-**Edge:** NVIDIA Jetson deployment and optimization
-**Practices:** train/serve parity by construction, versioned model bundles, subject-disjoint and temporal evaluation protocols, pytest test suites
-**Also:** synthetic data generation (Blender, NVIDIA Isaac Sim), SQL, C++
+**LLM / agents:** LangGraph, Vertex AI (Gemini), hybrid retrieval (BM25 + embeddings), abstention and citation validation, Langfuse, eval harnesses with confidence intervals
+**ML:** PyTorch, TensorFlow/Keras, LightGBM, YOLO11, SAM 2
+**Engineering:** Python, FastAPI, Docker, Redis, Celery, pytest
+**Cloud / data:** GCP (Cloud Run, Vertex AI, BigQuery, GCS, Cloud Build), Terraform, dbt
+**Edge:** NVIDIA Jetson, TensorRT
 
 **Languages:** Spanish (native), English (C1)
 
@@ -58,4 +63,4 @@ Real-time, multi-camera inference system running eight concurrent computer visio
 - Email: alexisrrm12@gmail.com
 - LinkedIn: [linkedin.com/in/alexis-rojas-alexxcode](https://www.linkedin.com/in/alexis-rojas-alexxcode/)
 
-Open to Applied AI / Computer Vision roles — remote (UTC-4, overlaps US hours) or relocation.
+Open to AI Engineer / LLM Engineer roles — remote, full-time or contract. 
