@@ -37,7 +37,7 @@ Former **Lead AI Engineer** at an industrial AI company in Spain, where I led a 
 
 ### Applied AI, LLMs & Rigorous Evaluation
 
-- **[The Catcher in the RAG](https://github.com/alexxcode/the-catcher-in-the-rag)** · **[Live Demo](https://catcher-ui-staging-hrok623gcq-uc.a.run.app)** — *Auditable Accounts Payable Agent*  
+- **[The Catcher in the RAG](https://github.com/alexxcode/the-catcher-in-the-rag)**  — *Auditable Accounts Payable Agent*  
   Verifies invoices against contracts: every finding cites the clause verbatim or is dropped; abstains when no relevant clause exists. Out-of-sample on CUAD: 85.9% Hit@5 (vs. 68.6% BM25) and correct abstention raised from 27.9% to 63.3%.  
   `LangGraph` `Vertex AI (Gemini)` `Langfuse` `Terraform` `Cloud Run`
 
