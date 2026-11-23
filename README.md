@@ -1,75 +1,73 @@
 # Alexis Rojas
 
-**Machine Learning Engineer · Computer Vision & MLOps**
+**Production Machine Learning Engineer · MLOps & Applied AI**
 
-I build ML systems end to end: the data pipeline that feeds the model, the infrastructure that serves it, and the evaluation that tells you whether to trust it. Every number I publish is the one that survives deployment, not the optimistic one.
+I build and operate ML systems end to end: data pipelines, cloud/edge infrastructure, and out-of-sample evaluation that holds up in production. Every metric I publish is the deployable one, not the optimistic diagnostic.
 
-Former **Lead AI Engineer** at an industrial AI company in Spain, where I led a team of three and took computer vision into production for a smart manufacturing program funded by the EU (EUREKA / CDTI).
+Former **Lead AI Engineer** at an industrial AI company in Spain, where I led a team of three taking computer vision and MLOps infrastructure into production for an EU-funded smart manufacturing program (EUREKA / CDTI).
 
----
-
-## In production
-
-- **Edge vision on the factory floor.** Eight vision use cases (PPE compliance, operator inactivity, kitting, assembly verification) running concurrently on NVIDIA Jetson with TensorRT in a tool and die plant in Madrid.
-- **MLOps platform.** Dataset versioning, training on GPU machines that switch themselves off when done, a model registry with atomic promotion, and model swaps on edge devices without downtime.
-- **MENTAT.** A SAM 2 pre-labeling service: about 94% less manual annotation time across 115,000+ frames.
+**Open to:** Senior/Mid ML Engineer & MLOps roles · Remote (EU / Global, full-time or B2B contract)  
+[Email](mailto:alexisrrm12@gmail.com) · [LinkedIn](https://www.linkedin.com/in/alexis-rojas-alexxcode/)
 
 ---
 
-## Featured work
+## Production Track Record
 
-### Computer vision
-
-**[EXPAI Inference Platform](https://github.com/alexxcode/expai-inference-platform)**
-Modular real time video analytics for industrial plants. A shared core (YOLO11, ByteTrack, video decoding, rendering) plus one module per use case: PPE, inactivity, metrology, kitting, process monitoring. FastAPI, Docker, about 26.6 FPS on a T4.
-
-**[AlphaPlus](https://github.com/alexxcode/fabrica-de-modelos)**
-The model factory behind it. Dataset ingestion, YOLO training on an on demand L4 GPU that shuts itself down after every run, a registry with atomic promotion through GCS conditional writes, and a validation API. Models shipped at 95.5% and 92.6% mAP@50. FastAPI, React, PostgreSQL, Celery.
-
-**[Vivace](https://github.com/alexxcode/liveness-pad)** · [live demo](https://liveness-api-6pxuzbuieq-uc.a.run.app/)
-Passive liveness detection for KYC, evaluated against ISO/IEC 30107-3. Training and serving share one preprocessing module, so train/serve skew is impossible by construction. The evaluation caught the model's own shortcut (image sharpness as a proxy for "live") before deployment, and the README reports the deployable ACER (13.06%), not the oracle one (2.76%).
-
-**[Palimpsest](https://github.com/alexxcode/palimpsest)**
-Satellite change detection on Sentinel-2: Earth Engine retrieval, a Siamese change detection model (F1 0.86 on LEVIR-CD) adapted to close a 20x resolution gap, GeoJSON polygons in BigQuery, and a Gemini agent that explains what changed.
-
-### Evaluation and decision systems
-
-**[Dupin](https://github.com/alexxcode/dupin)**
-Real time fraud scoring (LightGBM, FastAPI, about 15 to 20 ms per transaction). The point is the gap: a naive 99.8% recall breaks down into label leakage and temporal leakage, and the deployable result is 35.3% recall at 75.4% precision, plus an auto block tier with zero false positives. Synthetic data (PaySim): the contribution is the method, not the absolute number.
-
-### LLM systems
-
-**[The Catcher in the RAG](https://github.com/alexxcode/the-catcher-in-the-rag)** · [live demo](https://catcher-ui-staging-hrok623gcq-uc.a.run.app)
-An accounts payable agent that stands between the invoice and the payment. LangGraph, Gemini on Vertex AI, Langfuse, Terraform, Cloud Run. Every finding cites the contract verbatim or is dropped; with no relevant clause, it declines to judge. Out of sample on CUAD: dense retrieval reaches 85.9% Hit@5 vs 68.6% for BM25, correct abstention rises from 27.9% to 63.3%, and the README publishes where it still fails.
-
-### Data platforms
-
-**[Aleph](https://github.com/alexxcode/aleph)**
-A dbt and BigQuery platform (Kimball, SCD2, data contracts, keyless CI) that feeds a LightGBM demand forecast (WAPE about 0.11) back into the warehouse as reorder recommendations.
+- **MLOps Platform:** Built an end-to-end model lifecycle—dataset versioning, on-demand L4 GPU training with automatic shutdown, atomic model promotion via GCS conditional writes, and zero-downtime hot-swaps to edge devices.
+- **Edge AI at Scale:** Deployed 8 concurrent computer vision use cases (PPE compliance, operator inactivity, kitting, assembly verification) on NVIDIA Jetson with TensorRT in a Madrid tool-and-die plant.
+- **Data Engine (MENTAT):** Built a SAM 2 pre-labeling microservice that cut manual annotation time by ~94% across 115,000+ frames.
 
 ---
 
-## How I work
+## Selected Systems
 
-1. **The deployable metric is the result.** Thresholds are chosen on validation and reported on data the model never saw. Optimistic numbers are labeled as diagnostics.
-2. **Parity by construction.** One preprocessing path for training and serving, one source of truth for data.
-3. **Cost and failure are design inputs.** GPUs that turn themselves off, promotions that either fully happen or not at all, systems that abstain instead of guessing.
+### MLOps & Production Infrastructure
+
+- **[AlphaPlus](https://github.com/alexxcode/fabrica-de-modelos)** — *End-to-End Model Factory*  
+  Dataset ingestion, on-demand GPU training (auto-shutdown post-run), atomic registry promotion (GCS conditional writes), and validation API. Shipped models at 95.5% and 92.6% mAP@50.  
+  `FastAPI` `React` `PostgreSQL` `Celery` `GCP` `YOLO11`
+
+- **[EXPAI Inference Platform](https://github.com/alexxcode/expai-inference-platform)** — *Real-Time Industrial Video Analytics*  
+  Modular inference engine with a shared core (YOLO11, ByteTrack, decoding/rendering) and pluggable modules for PPE, inactivity, metrology, and kitting. Runs at ~26.6 FPS on a T4.  
+  `PyTorch` `TensorRT` `NVIDIA Jetson` `FastAPI` `Docker`
+
+- **[Aleph](https://github.com/alexxcode/aleph)** — *Analytics & Demand Forecasting Platform*  
+  Warehouse architecture (Kimball, SCD2, data contracts, keyless CI) feeding a LightGBM demand forecast (WAPE ~0.11) back into BigQuery as automated reorder recommendations.  
+  `dbt` `BigQuery` `LightGBM` `GitHub Actions`
+
+### Applied AI, LLMs & Rigorous Evaluation
+
+- **[The Catcher in the RAG](https://github.com/alexxcode/the-catcher-in-the-rag)** · **[Live Demo](https://catcher-ui-staging-hrok623gcq-uc.a.run.app)** — *Auditable Accounts Payable Agent*  
+  Verifies invoices against contracts: every finding cites the clause verbatim or is dropped; abstains when no relevant clause exists. Out-of-sample on CUAD: 85.9% Hit@5 (vs. 68.6% BM25) and correct abstention raised from 27.9% to 63.3%.  
+  `LangGraph` `Vertex AI (Gemini)` `Langfuse` `Terraform` `Cloud Run`
+
+- **[Vivace](https://github.com/alexxcode/liveness-pad)** · **[Live Demo](https://liveness-api-6pxuzbuieq-uc.a.run.app/)** — *Passive Liveness Detection for KYC*  
+  Evaluated against ISO/IEC 30107-3 with shared train/serve preprocessing to eliminate skew by construction. Caught a sharpness shortcut pre-deployment and reports deployable ACER (13.06%) vs. oracle (2.76%).  
+  `PyTorch` `FastAPI` `Cloud Run`
+
+- **[Dupin](https://github.com/alexxcode/dupin)** — *Real-Time Fraud Scoring & Leakage Audit*  
+  15–20 ms scoring API on PaySim demonstrating the gap between naive leakage (99.8% recall) and honest temporal deployment (35.3% recall at 75.4% precision, plus a zero-FP auto-block tier).  
+  `LightGBM` `FastAPI`
+
+- **[Palimpsest](https://github.com/alexxcode/palimpsest)** — *Geospatial Change Detection*  
+  Sentinel-2 pipeline via Earth Engine, Siamese change detection (F1 0.86 on LEVIR-CD) adapted across a 20x resolution gap, GeoJSON polygons in BigQuery, and a Gemini agent explaining changes.  
+  `Google Earth Engine` `PyTorch` `BigQuery` `Gemini`
 
 ---
 
-## Stack
+## Engineering Principles
 
-**Vision and ML:** PyTorch, TensorFlow/Keras, YOLO11, SAM 2, TensorRT, NVIDIA Jetson, OpenCV, LightGBM
-**MLOps and engineering:** Python, FastAPI, Docker, Celery, Redis, PostgreSQL, pytest, GitHub Actions
-**Cloud and data:** GCP (Vertex AI, Cloud Run, BigQuery, GCS, Compute Engine), Terraform, dbt
-**LLM:** LangGraph, Gemini, hybrid retrieval (BM25 + embeddings), Langfuse
-
-**Languages:** Spanish (native), English (C1)
+1. **Deployable metrics only:** Thresholds are fixed on validation and reported on unseen data. Optimistic numbers are explicitly labeled as diagnostics.
+2. **Train/serve parity by construction:** One preprocessing path and one source of truth for data.
+3. **Cost and failure as first-class inputs:** GPUs that shut themselves off, atomic promotions, and systems that abstain instead of guessing.
 
 ---
 
-## Contact
+## Core Stack
 
-alexisrrm12@gmail.com · [LinkedIn](https://www.linkedin.com/in/alexis-rojas-alexxcode/)
+- **MLOps & Cloud:** GCP (Vertex AI, Cloud Run, BigQuery, GCS, Compute Engine), Terraform, Docker, GitHub Actions, pytest, dbt
+- **ML & Vision:** PyTorch, YOLO11, SAM 2, TensorRT, NVIDIA Jetson, OpenCV, LightGBM, TensorFlow/Keras
+- **LLMs & Agents:** LangGraph, Gemini, Hybrid Retrieval (BM25 + embeddings), Langfuse
+- **Backend & Data:** Python, SQL, FastAPI, Celery, Redis, PostgreSQL
 
-Open to Machine Learning, Computer Vision and MLOps Engineer roles. Remote, full time or contract.
+**Languages:** Spanish (native) · English (C1)
